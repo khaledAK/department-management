@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col">
+    <ul class="list-group">
+      <a class="list-group-item" (click)="modal.show(i , _departments)" style="cursor:pointer"
+        *ngFor='let department of _departments; let i = index;'>
+         {{department.name}}
+    </a>
+    </ul>
+  </div>
+</div>
+<app-edit-department #modal> </app-edit-department>

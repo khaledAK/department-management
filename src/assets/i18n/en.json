@@ -1,0 +1,21 @@
+{
+    "brand":"Department Managment",
+    "change_lang":"Change To French",
+    "add_employee":"Add Employee",
+    "log_out":"Logout",
+    "update":"Update",
+    "first_name":"First Name",
+    "last_name":"Last Name",
+    "email":"E-mail",
+    "mobile_number":"Mobile Number",
+    "profile":"Profile",
+    "employees":"Employees",
+    "departments":"Departments",
+    "search_by_firstname":"Search By First Name",
+    "delete":"Delete",
+    "department":"Department",
+    "log_in":"Login",
+    "password":"Password",
+    "please_sign_in":"Please sign in",
+    "back":"Back"
+}

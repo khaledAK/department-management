@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row vertical-offset-100">
+      <div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <form accept-charset="UTF-8" role="form" (submit)="updateProfile()">
+              <div class="form-group">
+                  <input class="form-control" name="firstName" type="text" [(ngModel)]='_employee.firstName' 
+                  placeholder="{{'first_name'|translate}}"
+                  [style.borderColor]="errorsContain('firstName')?'red':'#E2E2E2'">
+              </div>
+              <div class="form-group">
+                <input class="form-control" name="lastName" type="text" [(ngModel)]='_employee.lastName' 
+                placeholder="{{'last_name'|translate}}"
+                [style.borderColor]="errorsContain('lastName')?'red':'#E2E2E2'">
+              </div>
+              <div class="form-group">
+                <input class="form-control" name="email" type="email" [(ngModel)]='_employee.email' 
+                placeholder="{{'email'|translate}}"
+                [style.borderColor]="errorsContain('email')?'red':'#E2E2E2'">
+              </div>
+              <div class="form-group">
+                <input class="form-control" name="mobileNumber" type="number" [(ngModel)]='_employee.mobileNumber' 
+                placeholder="{{'mobile_number'|translate}}"
+                [style.borderColor]="errorsContain('mobileNumber')?'red':'#E2E2E2'">
+              </div>
+         
+              <input class="btn btn-lg btn-primary btn-block" type="submit" value="{{'update'|translate}}">         
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

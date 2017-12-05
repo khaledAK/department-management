@@ -1,0 +1,21 @@
+{
+    "brand":"Département de gestion",
+    "change_lang":"Changer en anglais",
+    "add_employee":"Ajouter un employé",
+    "log_out":"Connectez - Out",
+    "update":"Mettre à jour",
+    "first_name":"Prénom",
+    "last_name":"Nom de famille",
+    "email":"E-mail",
+    "mobile_number":"Numéro de portable",
+    "profile":"Profil",
+    "employees":"Des employés",
+    "departments":"Départements",
+    "search_by_firstname":"Recherche par prénom",
+    "delete":"Effacer",
+    "department":"Département",
+    "log_in":"S'identifier",
+    "password":"Mot de passe",
+    "please_sign_in":"Veuillez vous connecter",
+    "back":"arrière"
+}

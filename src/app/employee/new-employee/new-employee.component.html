@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row vertical-offset-100">
+    <div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{'add_employee'|translate}}</h3>
+        </div>
+        <div class="panel-body">
+          <form accept-charset="UTF-8" role="form" (submit)="createNewEmployee()">
+            
+            <div class="form-group">
+              <input class="form-control" name="email" 
+                        placeholder="{{'email'|translate}}" type="email" 
+                        [(ngModel)]='email'
+                        [style.borderColor]="errorsContain('email')?'red':'#E2E2E2'">
+            </div>
+            <div style="cursor:pointer" class="dropdown department" appDropdown
+              [style.borderColor]="errorsContain('departmentId')?'red':'#E2E2E2'">             
+              {{selectedDepartment}} <span class="caret"></span>
+              <a class="dropdown-toggle" role="button"></a>
+              <ul class="dropdown-menu">  
+                  <li *ngFor='let department of departments; let i = index' (click)='chooseDepartment(i)'>
+                    {{department.name}}
+                  </li>
+              </ul>
+            </div>
+            <input class="btn btn-lg btn-primary btn-block" type="submit" value="{{'add_employee'|translate}}">         
+          </form>
+          <button class="btn btn-danger" style="margin-top:2%;" (click)="back()">{{'back'|translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
