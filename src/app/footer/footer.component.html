@@ -1,0 +1,17 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropup" appDropdown>
+                    <a class="dropdown-toggle" role="button">{{'change_lang'|translate}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu"> 
+                        <li><a (click)="changeLang('en')">{{'english'|translate}}<span *ngIf="translate.getDefaultLang() == 'en'">&#x2713;</span></a></li>
+                        <li><a (click)="changeLang('fr')">{{'frensh'|translate}}<span *ngIf="translate.getDefaultLang() == 'fr'">&#x2713;</span></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+</nav>

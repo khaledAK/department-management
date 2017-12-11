@@ -24,6 +24,8 @@ export class LoginComponent implements OnInit {
         this._employeeService.setCurrentEmployee(response); 
         if(this._employeeService.getCurrentEmployee().roleId === 1)
           this._router.navigate(['manager/profile']);
+        else if(this._employeeService.getCurrentEmployee().roleId == 2)
+          this._router.navigate(['administrator/profile']);
       });
   }
 

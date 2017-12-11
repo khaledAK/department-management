@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 
 import { EmployeeService } from '../service/employee.service';
-import { TranslateService } from '@ngx-translate/core'
+
 
 @Component({
     selector: 'app-header',
@@ -11,16 +11,10 @@ import { TranslateService } from '@ngx-translate/core'
 })
 
 export class HeaderComponent { 
-    constructor(private _employeeService: EmployeeService, private _router: Router, private translate: TranslateService){
-        this.translate.setDefaultLang('en');
+    constructor(public _employeeService: EmployeeService, private _router: Router){
+        
     }
-    public changeLang() {
-        if(this.translate.getDefaultLang() == 'fr')
-            this.translate.setDefaultLang('en');
-        else 
-            this.translate.setDefaultLang('fr');
-    }
-
+    
     logout() {
         this._employeeService.logout().subscribe(
             response => {

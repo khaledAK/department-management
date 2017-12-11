@@ -1,8 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { EmployeeModel } from '../../shared/employee.model';
 import { EmployeeService } from '../../service/employee.service';
 import { DepartmentService } from '../../service/deppartment.service';
 import { DepartmentModel } from '../../shared/department.model';
+
 
 
 @Component({
@@ -11,95 +14,85 @@ import { DepartmentModel } from '../../shared/department.model';
   styleUrls: ['./employee-list.component.css']
 })
 export class EmployeeListComponent implements OnInit {
-  employees: EmployeeModel[];
+
+  departments: DepartmentModel[] = [];
+  toggle = {};
+  deleted: number[] = [];
+  employees = {};
+  filtered = {};
+
   selectedEmployee: EmployeeModel;
-  deleted: boolean[] = [];
-  filtered: boolean[] = [];
 
-
-
-  employeesDepartments: DepartmentModel[] = [];
-
-  constructor(private _employeeService: EmployeeService, private _departmentService: DepartmentService) { }
+  constructor(public _employeeService: EmployeeService, private router: Router,  private _departmentService: DepartmentService) { }
 
   ngOnInit() {
-    this._employeeService.getAllEmployees().subscribe(response => {
-      this._employeeService.setEmployees(response);
-      this.initDeleted();
-      this.initFiltered();
+    if(this._employeeService.getCurrentEmployee().roleId == 1) {
+      this._departmentService.getManagerDepartments().subscribe (res => {
+        this._departmentService.setDepartments(res.departments);
+      })
+    } else if(this._employeeService.getCurrentEmployee().roleId == 2) {
+      this._departmentService.getAllDepartments().subscribe (res => {
+        this._departmentService.setDepartments(res.departments);
+      })
+    }
+
+    this._departmentService.departmentsEmitter.subscribe(departments => {
+      this.departments.splice(0 , this.departments.length);
+      this.deleted.splice(0 , this.deleted.length);
+      departments.map(department => {
+        this.departments.push(new DepartmentModel().toDepartment(department));
+        this._departmentService.getAllDepartmentEmployees(department.id).subscribe(response => {
+          this.employees[department.id] = response.employees;
+        })
+      })
+    })
+  }
+  openOrHideDepartment(department) {
+    if(this.toggle[department.id])
+      this.toggle[department.id] = false;
+    else {
+      this.departments.map(department => {
+        this.toggle[department.id] = false;
+      })
+      this.toggle[department.id] = true;
+    }
+  }
+  
+
+  deleteEmployees() {
+    this._employeeService.deleteFromDepartment(this.deleted)
+    .subscribe(response => {
+      this.ngOnInit();
     });
- 
-    this._employeeService.employeesEmitter.subscribe(
-      (employees:EmployeeModel[]) => {
-        this.employees = employees;
-        
-        this.employeesDepartments.splice(0 , this.employeesDepartments.length);
-        let departments = this._departmentService.getDepartments();
-        this.employees.map(employee => {
-          for(let i = 0; i < departments.length; i++) {
-            if(departments[i].id == employee.departmentId) {              
-              this.employeesDepartments.push(new DepartmentModel().toDepartment(departments[i]));
-              break;
-            }
-          }
-        });        
-      }
-    );
-    this.initDeleted();
-    this.initFiltered();
   }
 
-  showEmployee(idx: number) {
-    this.selectedEmployee = this.employees[idx];
+  deleteForever() {
+    this._employeeService.delete(this.deleted).subscribe(response => {
+      this.ngOnInit();
+    })
   }
 
-  toggleDelete(i) {
-    this.deleted[i] = !this.deleted[i];
-  }
-
-  deleteEmployees(){
-    let ids: number[] = [];
-    for(let i = 0; i < this.deleted.length; i ++) {
-      if(this.deleted[i]) {
-        ids.push(this.employees[i].id);
-      }
-    }
-
-    this._employeeService.delete(ids)
-      .subscribe(response => {
-        this._employeeService.getAllEmployees().subscribe(response => {
-          this._employeeService.setEmployees(response);
-          this.initDeleted()
-          this.initFiltered();
-        });
-      });
-  }
-
-  initDeleted() {
-    for(let i of this.deleted) 
-      i = false;
-    let diffSize = this.employees.length - this.deleted.length;
-    for(let i = 0; i < diffSize; i ++)  {
-      this.deleted.push(false);
-    }
-  }
-  initFiltered() {
-    for(let i of this.filtered) 
-      i = true;
-    let diffSize = this.employees.length - this.filtered.length;
-    for(let i = 0; i < diffSize; i ++)  {
-      this.filtered.push(true);
-    }
-  }
   searchByFirstName(e) {
-    // console.log(e)
-    for(let i = 0; i < this.employees.length; i ++) {
-      if(this.employees[i].firstName.toLowerCase().search("[a-zA-Z]*(" + e.value.toLowerCase() + ")[a-zA-Z]*")) {
-        this.filtered[i] = false;
-      } else {
-        this.filtered[i] = true;
-      }
-    }
+    this.departments.map(department=> {
+      this.employees[department.id].map(emp => {
+        this.filtered[emp.id] = emp.firstName.toLowerCase().search("[a-zA-Z]*(" + e.value.toLowerCase() + ")[a-zA-Z]*")
+      })
+    })
   }
+  openOrHideEmployee(employee , department) {
+    this.openOrHideDepartment(department);
+    this.selectedEmployee = employee;
+  }
+
+  deleteOrNotDelete(employee , department) {
+    
+    let idx = this.deleted.indexOf(employee.id);
+    if(idx < 0)
+      this.deleted.push(employee.id)
+    else 
+      this.deleted.splice(idx , 1);
+  }
+
+
 
 }

@@ -81,7 +81,7 @@ export class EditDepartmentComponent implements OnInit {
   loadAnotherDepartmentEmployees() {
     
     this._departmentService.getAllDepartmentEmployees(this.departments[this.anotherDepartment].id).subscribe(
-      res => {console.log(res , " " , this.departments[this.anotherDepartment].id)
+      res => {
         this.anotherDepartmentEmployees.splice(0 , this.anotherDepartmentEmployees.length);
         res.employees.map(employee => {
           this.anotherDepartmentEmployees.push(new EmployeeModel().toEmployee(employee));
@@ -96,7 +96,6 @@ export class EditDepartmentComponent implements OnInit {
     this.anotherDepartment = -1;
     this.currentDepartmentEmployeeSelected = this.anotherDepartmentEmployeeSelected = -1;
     this.departments = departments.slice();
-    console.log(this.departments)
     this.currentDepartment = this.departments[idx];
     this.init();
     this.visible = true;

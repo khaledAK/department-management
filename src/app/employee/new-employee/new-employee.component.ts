@@ -14,61 +14,61 @@ import { DepartmentModel } from '../../shared/department.model';
 })
 export class NewEmployeeComponent implements OnInit {
   email: string;
-  departments: DepartmentModel[] = [];
-  selectedDepartment: string = "Department";
-  selectedDepartmentIndex: number = 0;
+  department: DepartmentModel;
+  parent;
   errors;
-
+  public visible = false;
+  public visibleAnimate = false;
 
   
 
   constructor(private _employeeService: EmployeeService, private router: Router, private _departmentService: DepartmentService) { }
 
   ngOnInit() {
-    this.departments = this._departmentService.getDepartments();
-
-    if(!this.departments.length)
-      this._departmentService.getManagerDepartments().subscribe(response=>{
-        this._departmentService.setDepartments(response.departments);      
-      })
-
-    this._departmentService.departmentsEmitter.subscribe(
-      departments => {
-      }
-    )
-    if(this.departments[this.selectedDepartmentIndex])
-      this.selectedDepartment = this.departments[this.selectedDepartmentIndex].name;
+    
   }
 
-  chooseDepartment(idx: number) {
-    this.selectedDepartmentIndex = idx;
-    this.selectedDepartment = this.departments[this.selectedDepartmentIndex].name;
-  }
 
   createNewEmployee() {
-    this._employeeService.addEmployee(this.email , this.departments[this.selectedDepartmentIndex].id).subscribe(
+    this._employeeService.addEmployee(this.email , this.department.id).subscribe(
       response => {
-        this.router.navigate(["manager/profile"]);
+        this.parent.ngOnInit();
+        this.email = "";
+        this.errors =false;
+        this.hide();
       },
       err => {
-        let errors = JSON.parse(err._body).errors;
-        this.errors = errors;
+        this.errors = true;
       }
     )
   }
 
   back() {
-    console.log("A")
     this.router.navigate(["manager/profile"]);
   }
 
   errorsContain(errorType) {
-    let yes = false;
     if(this.errors)
-      this.errors.map(error => {
-        let errorField = error.arguments[0].codes[1];
-        if(errorField == errorType) yes = true;
-      })
-    return yes;
+      return true;
+    return false;
+  }
+
+
+  public show(department, parent): void {
+    this.department = department;
+    this.parent = parent;
+    this.visible = true;
+    setTimeout(() => this.visibleAnimate = true, 100);
+  }
+
+  public hide(): void {
+    this.visibleAnimate = false;
+    setTimeout(() => this.visible = false, 300);
+  }
+
+  public onContainerClicked(event: MouseEvent): void {
+    if ((<HTMLElement>event.target).classList.contains('modal')) {
+      this.hide();
+    }
   }
 }

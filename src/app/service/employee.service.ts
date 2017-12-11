@@ -20,6 +20,8 @@ export class EmployeeService {
     private _deleteUrl = 'delete';
     private _addEmployee = "addemployee";
     private _logoutUrl = "logout";
+    private _deleteFromDepartment = "deletefromdepartment";
+    private _save = "save";
 
     constructor(private _http: Http){}
 
@@ -83,6 +85,16 @@ export class EmployeeService {
     delete(ids) {
         let headers = this.getHeaders();
         return this._http.post(this._baseUrl + this._deleteUrl , {ids:ids} , {headers:headers});
+    }
+
+    deleteFromDepartment(ids) {
+        let headers = this.getHeaders();
+        return this._http.post(this._baseUrl + this._deleteFromDepartment , {ids:ids} , {headers:headers});
+    }
+
+    save(employee) {
+        let headers = this.getHeaders();
+        return this._http.post(this._baseUrl + this._save , employee , {headers:headers});
     }
 
     logout() {

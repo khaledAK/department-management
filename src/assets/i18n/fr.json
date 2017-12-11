@@ -1,6 +1,6 @@
 {
     "brand":"Département de gestion",
-    "change_lang":"Changer en anglais",
+    "change_lang":"Changer La langue",
     "add_employee":"Ajouter un employé",
     "log_out":"Connectez - Out",
     "update":"Mettre à jour",
@@ -17,5 +17,24 @@
     "log_in":"S'identifier",
     "password":"Mot de passe",
     "please_sign_in":"Veuillez vous connecter",
-    "back":"arrière"
+    "back":"arrière",
+    "there_is_no_employees_in_this_department":"Il n'y a pas d'employés dans ce département.",
+    "change_to_english":"Changer en anglais",
+    "change_to_frensh":"Changer en français",
+    "are_you_sur_you_want_to_delete_them":"Êtes-vous sûr, vous voulez les supprimer ?!",
+    "warning":"Attention",
+    "you_have_no_authorization_to_access_this_link":"Vous n'avez aucune autorisation pour accéder à ce lien",
+    "create_new_employee":"Créer un nouvel employé",
+    "submit":"soumettre",
+    "yes": "OUI",
+    "no":"NON",
+    "delete_from_department":"Supprimer du département",
+    "delete_for_ever":"Supprimer pour toujours",
+    "ignore":"Ignorer",
+    "add_new_department":"Ajouter un nouveau département",
+    "name":"prénom",
+    "manager_email":"Gestionnaire Email",
+    "english":"anglais",
+    "frensh":"français",
+    "add_existing_employee":"Ajouter un employé existant"
 }

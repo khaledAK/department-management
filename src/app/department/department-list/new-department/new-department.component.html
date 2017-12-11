@@ -1,0 +1,27 @@
+<div (click)="onContainerClicked($event)" class="modal fade" tabindex="-1" [ngClass]="{'in': visibleAnimate}"
+[ngStyle]="{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      {{'add_new_department'|translate}}
+    </div>
+    <div class="modal-body">
+      <form accept-charset="UTF-8" role="form" (submit)="createNewDepartment()">
+        <div class="form-group">
+          <input class="form-control" name="firstName" 
+            placeholder="{{'name'|translate}}" type="text" 
+            [(ngModel)]='name'
+            [style.borderColor]="errorsContain('name')?'red':'#E2E2E2'">
+          <br>
+          <input class="form-control" name="managerEmail" 
+            placeholder="{{'manager_email'|translate}}" type="text" 
+            [(ngModel)]='managerEmail'
+            [style.borderColor]="errorsContain('managerEmail') || emailNotExsit?'red':'#E2E2E2'">   
+          <br>  
+          <input class="btn btn-lg btn-primary btn-block" type="submit" name="submit" value="{{'submit'|translate}}">
+        </div>
+      </form> 
+    </div>
+  </div>
+</div>
+</div>

@@ -1,44 +1,68 @@
-<div class="row">
-  <div class="col">
-      <form class="navbar-form" role="search" (submit)='searchByFirstName(searchFirstName)' #search>
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="{{'search_by_firstname'|translate}}" name="srch-term" id="srch-term" #searchFirstName>
-            <div class="input-group-btn">
-                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-            </div>
+<div>
+  <div>
+    <form class="navbar-form" role="search" (submit)='searchByFirstName(searchFirstName)' #search>
+      <div class="input-group">
+          <input type="text" class="form-control" placeholder="{{'search_by_firstname'|translate}}" name="srch-term" id="srch-term" #searchFirstName>
+          <div class="input-group-btn">
+              <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+          </div>
+      </div>
+    </form>
+        <ul  class="list-group" >
+          <li class="list-item"
+          style="table-layout: fixed;  width:1000px"
+        *ngFor="let department of departments"
+        style="cursor:pointer">
+        <p (click)="openOrHideDepartment(department)"> {{department.name}} <span class="caret"></span> </p>
+        <div [hidden]="!toggle[department.id] ||
+                   (!employees[department.id] ||  
+                     employees[department.id].length != 0)">
+          <span style="width: 100%" class="text-warning">
+            {{'there_is_no_employees_in_this_department'|translate}}</span>
+            
+            <span class="cssCircle plusSign" 
+            (click)="_employeeService.getCurrentEmployee().roleId == 2?newEmployee.show(department, this):addEmployee.show(department , this)">
+              &#43;
+          </span>
         </div>
-      </form>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>{{'delete'|translate}}</th>
-          <th>{{'first_name'|translate}}</th>
-          <th>{{'last_name'|translate}}</th>
-          <th>{{'email'|translate}}</th>
-          <th>{{'department'|translate}}</th>
-        </tr>
-      </thead>
-      <tbody *ngFor='let employee of employees; let i = index;'
-          style="cursor:pointer" (click)='showEmployee(i)'> 
-        <td  *ngIf='filtered[i]'><input type="checkbox" (click)='toggleDelete(i)'></td>
-        <td  *ngIf='filtered[i]'>{{employee.firstName}}</td>
-        <td  *ngIf='filtered[i]'>{{employee.lastName}}</td>
-        <td  *ngIf='filtered[i]'>{{employee.email}}</td>
-        <td  *ngIf='employeesDepartments[i] && filtered[i]'>{{employeesDepartments[i].name}}</td>
-      </tbody>
-    </table>
-
-    <button class="btn btn-danger" (click)='deleteEmployees()'>
+        <table class="table table-striped"
+          style="table-layout: fixed;  width:1000px"
+        [hidden]="!toggle[department.id] ||
+        (!employees[department.id] ||  
+          employees[department.id].length == 0)">
+          <thead>
+            <tr>
+              <th>{{'delete'|translate}}</th>
+              <th>{{'first_name'|translate}}</th>
+              <th>{{'last_name'|translate}}</th>
+              <th>{{'email'|translate}}</th>
+              <th>{{'mobile_number'|translate}}</th>
+              <div class="cssCircle plusSign" 
+                    (click)="_employeeService.getCurrentEmployee().roleId == 2?newEmployee.show(department, this):addEmployee.show(department , this)">
+                &#43;
+              </div>
+            </tr>
+          </thead>
+          <tbody *ngFor='let employee of employees[department.id]; let i = index;'
+              style="cursor:pointer"> 
+            <td  *ngIf='!filtered[employee.id]'><input type="checkbox" (click)='deleteOrNotDelete(employee , department)'></td>
+            <td  *ngIf='!filtered[employee.id]'>{{employee.firstName}}</td>
+            <td  *ngIf='!filtered[employee.id]'>{{employee.lastName}}</td>
+            <td  *ngIf='!filtered[employee.id]'>{{employee.email}}</td>
+            <td  *ngIf='!filtered[employee.id]'>{{employee.mobileNumber}}</td>
+          </tbody>
+        </table>
+      </li>
+    </ul>
+    <button class="btn btn-danger" (click)='delete.show(this)'>
         {{'delete'|translate}}
     </button>
-    
   </div>
-</div>
-
-<div class="div">
-  <div class="col">
-      <app-employee [employee]="selectedEmployee"></app-employee>
-  </div>
+  
 </div>
 
 
+
+<app-confimation #delete> </app-confimation>
+<app-create-employee #newEmployee></app-create-employee>
+<app-new-employee #addEmployee></app-new-employee>

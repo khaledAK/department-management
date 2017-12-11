@@ -1,6 +1,6 @@
 {
     "brand":"Department Managment",
-    "change_lang":"Change To French",
+    "change_lang":"Change Language",
     "add_employee":"Add Employee",
     "log_out":"Logout",
     "update":"Update",
@@ -17,5 +17,24 @@
     "log_in":"Login",
     "password":"Password",
     "please_sign_in":"Please sign in",
-    "back":"Back"
+    "back":"Back",
+    "there_is_no_employees_in_this_department":"There is No Employees in this Department.",
+    "change_to_english":"Change to English",
+    "change_to_frensh":"Change to Frensh",
+    "are_you_sur_you_want_to_delete_them":"Are you sure, You want to delete them?!",
+    "warning":"Warning",
+    "you_have_no_authorization_to_access_this_link":"You have no Authorization to access this link",
+    "create_new_employee":"Create New Employee",
+    "submit":"submit",
+    "yes": "YES",
+    "no":"NO",
+    "delete_from_department":"Delete from Department",
+    "delete_for_ever":"Delete Forever",
+    "ignore":"Ignore",
+    "add_new_department":"Add New Department",
+    "name":"Name",
+    "manager_email":"Manager Email",
+    "english":"English",
+    "frensh":"Frensh",
+    "add_existing_employee":"Add Existing Employee"
 }

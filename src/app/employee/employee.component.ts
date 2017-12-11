@@ -8,8 +8,7 @@ import { EmployeeModel } from '../shared/employee.model';
 })
 export class EmployeeComponent implements OnInit {
 
-  @Input('employee') employee: EmployeeModel;
-
+  @Input() employee: EmployeeModel;
   constructor() { }
   
   ngOnInit() {

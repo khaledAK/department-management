@@ -24,7 +24,7 @@ export class EmployeeModel {
         if(this.roleId === 1)
             this.role = "ROLE_MANAGER";
         else if(this.roleId == 2)
-            this.role = "ROLE_ADMINSTRATOR";
+            this.role = "ROLE_ADMINISTRATOR";
         else
             this.role = "ROLE_EMPLOYEE";
         return this;
