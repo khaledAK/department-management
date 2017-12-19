@@ -36,5 +36,7 @@
     "manager_email":"Manager Email",
     "english":"English",
     "frensh":"Frensh",
-    "add_existing_employee":"Add Existing Employee"
+    "add_existing_employee":"Add Existing Employee",
+    "confirm":"Confirm",
+    "manager_name":"Manager Name"
 }

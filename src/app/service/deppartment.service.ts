@@ -20,6 +20,7 @@ export class DepartmentService {
     private _getAllDepartments = 'getalldepartments';
     private _save = 'save';
     private _deleteDepartments = 'deletedepartments';
+    private _getDepartmentManager = 'getdepartmentmanager';
 
     constructor(private _employeeService: EmployeeService, private _http: Http){}
 
@@ -44,7 +45,6 @@ export class DepartmentService {
 
     getManagerDepartments() {
         let headers = this._employeeService.getHeaders();
-        
         let data = {id:this._employeeService.getCurrentEmployee().id};
         return this._http.post(this._baseUrl + this._getManagerDepartmentsUrl , data , {headers: headers})
             .map((response:Response) => response.json());
@@ -72,5 +72,11 @@ export class DepartmentService {
     deleteDepartments(ids) {
         let headers = this._employeeService.getHeaders();
         return this._http.post(this._baseUrl + this._deleteDepartments , {ids:ids} , {headers:headers});
+    }
+    
+    getDepartmentManager(departmentId) {
+        let headers = this._employeeService.getHeaders();
+        return this._http.post(this._baseUrl + this._getDepartmentManager , {id:departmentId} , {headers:headers})
+        .map((response:Response) => response.json());
     }
 }

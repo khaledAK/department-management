@@ -36,5 +36,7 @@
     "manager_email":"Gestionnaire Email",
     "english":"anglais",
     "frensh":"français",
-    "add_existing_employee":"Ajouter un employé existant"
+    "add_existing_employee":"Ajouter un employé existant",
+    "confirm":"Confirmer",
+    "manager_name":"Nom du responsable"
 }

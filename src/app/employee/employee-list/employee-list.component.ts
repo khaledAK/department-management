@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { EmployeeModel } from '../../shared/employee.model';
 import { EmployeeService } from '../../service/employee.service';
@@ -23,7 +23,8 @@ export class EmployeeListComponent implements OnInit {
 
   selectedEmployee: EmployeeModel;
 
-  constructor(public _employeeService: EmployeeService, private router: Router,  private _departmentService: DepartmentService) { }
+  constructor(public _employeeService: EmployeeService, private router: Router,
+      private route:ActivatedRoute,  private _departmentService: DepartmentService) { }
 
   ngOnInit() {
     if(this._employeeService.getCurrentEmployee().roleId == 1) {
@@ -73,9 +74,16 @@ export class EmployeeListComponent implements OnInit {
   }
 
   searchByFirstName(e) {
+    let oneIsOpened : boolean = false;
     this.departments.map(department=> {
+      
       this.employees[department.id].map(emp => {
-        this.filtered[emp.id] = emp.firstName.toLowerCase().search("[a-zA-Z]*(" + e.value.toLowerCase() + ")[a-zA-Z]*")
+        this.filtered[emp.id] = emp.firstName.toLowerCase().search("[a-zA-Z]*(" + e.value.toLowerCase() + ")[a-zA-Z]*");
+        if(!this.filtered[emp.id] && !oneIsOpened) {
+          if(!this.toggle[department.id])
+            this.openOrHideDepartment(department);
+          oneIsOpened = true;
+        }
       })
     })
   }
@@ -93,6 +101,9 @@ export class EmployeeListComponent implements OnInit {
       this.deleted.splice(idx , 1);
   }
 
-
+  onAddClick() {
+    console.log("A")
+    this.router.navigate(['/employees/new-employee'])
+  }
 
 }

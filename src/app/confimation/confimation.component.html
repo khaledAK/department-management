@@ -6,11 +6,9 @@
       {{'warning'|translate}}
     </div>
     <div class="modal-body">
-        <p class="text-danger"> {{'are_you_sur_you_want_to_delete_them'|translate}} </p>
+        <p class="text-danger"> {{message}} </p>
         <br>
-        <button class="btn btn-danger"  (click)="deleteFromDepartment()">{{'delete_from_department'|translate}}</button> 
-        <button class="btn btn-danger" (click)="deleteForever()"
-          *ngIf="_employeeService.getCurrentEmployee().roleId == 2">{{'delete_for_ever'|translate}}</button>
+        <button class="btn btn-danger"  (click)="confirm()">{{'confirm'|translate}}</button> 
         <button class="btn btn-success" (click)="hide()">{{'ignore'|translate}}</button>
     </div>
   </div>

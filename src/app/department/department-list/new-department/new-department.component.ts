@@ -9,11 +9,9 @@ import { DepartmentModel } from '../../../shared/department.model';
 })
 export class NewDepartmentComponent implements OnInit {
 
-  public visible = false;
-  public visibleAnimate = false;
+
   name: string;
   managerEmail: string;
-  parent;
   errors;
   emailNotExsit = false;
   constructor(private _departmentService: DepartmentService) { }
@@ -23,15 +21,14 @@ export class NewDepartmentComponent implements OnInit {
 
   createNewDepartment() {
     this._departmentService.save({name: this.name , managerEmail: this.managerEmail}).subscribe(res => {
-      this.parent.ngOnInit();
-      this.hide();
+      /// todo add action after adding a new department
     },
-  err=> {
-    let errors = JSON.parse(err._body).errors;
-    this.errors = errors;
-    if(err.status == 500)
-      this.emailNotExsit = true;
-  });
+    err=> {
+      let errors = JSON.parse(err._body).errors;
+      this.errors = errors;
+      if(err.status == 500)
+        this.emailNotExsit = true;
+    });
   }
 
   errorsContain(errorType) {
@@ -43,22 +40,4 @@ export class NewDepartmentComponent implements OnInit {
       })
     return yes;
   }
-
-  public show(parent): void {
-    this.parent = parent;
-    this.visible = true;
-    setTimeout(() => this.visibleAnimate = true, 100);
-  }
-
-  public hide(): void {
-    this.visibleAnimate = false;
-    setTimeout(() => this.visible = false, 300);
-  }
-
-  public onContainerClicked(event: MouseEvent): void {
-    if ((<HTMLElement>event.target).classList.contains('modal')) {
-      this.hide();
-    }
-  }
-
 }

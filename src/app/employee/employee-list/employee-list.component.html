@@ -8,12 +8,14 @@
           </div>
       </div>
     </form>
-        <ul  class="list-group" >
-          <li class="list-item"
+        <ul  class="list-group">
+          <li class="list-group-item"
+          appClickStopPropagation
           style="table-layout: fixed;  width:1000px"
+          (click)="openOrHideDepartment(department)"
         *ngFor="let department of departments"
         style="cursor:pointer">
-        <p (click)="openOrHideDepartment(department)"> {{department.name}} <span class="caret"></span> </p>
+        <p> {{department.name}}  </p>
         <div [hidden]="!toggle[department.id] ||
                    (!employees[department.id] ||  
                      employees[department.id].length != 0)">
@@ -21,12 +23,12 @@
             {{'there_is_no_employees_in_this_department'|translate}}</span>
             
             <span class="cssCircle plusSign" 
-            (click)="_employeeService.getCurrentEmployee().roleId == 2?newEmployee.show(department, this):addEmployee.show(department , this)">
+            (click)="$event.stopPropagation();(_employeeService.getCurrentEmployee().roleId == 2?newEmployee.show(department, this):addEmployee.show(department , this))">
               &#43;
           </span>
         </div>
         <table class="table table-striped"
-          style="table-layout: fixed;  width:1000px"
+          style="table-layout: fixed;  width:1000px;margin-left: 100px;"
         [hidden]="!toggle[department.id] ||
         (!employees[department.id] ||  
           employees[department.id].length == 0)">
@@ -38,14 +40,14 @@
               <th>{{'email'|translate}}</th>
               <th>{{'mobile_number'|translate}}</th>
               <div class="cssCircle plusSign" 
-                    (click)="_employeeService.getCurrentEmployee().roleId == 2?newEmployee.show(department, this):addEmployee.show(department , this)">
+                    (click)="onAddClick()">
                 &#43;
               </div>
             </tr>
           </thead>
           <tbody *ngFor='let employee of employees[department.id]; let i = index;'
               style="cursor:pointer"> 
-            <td  *ngIf='!filtered[employee.id]'><input type="checkbox" (click)='deleteOrNotDelete(employee , department)'></td>
+            <td  *ngIf='!filtered[employee.id]'><input type="checkbox" (click)='$event.stopPropagation();deleteOrNotDelete(employee , department)'></td>
             <td  *ngIf='!filtered[employee.id]'>{{employee.firstName}}</td>
             <td  *ngIf='!filtered[employee.id]'>{{employee.lastName}}</td>
             <td  *ngIf='!filtered[employee.id]'>{{employee.email}}</td>
@@ -54,7 +56,7 @@
         </table>
       </li>
     </ul>
-    <button class="btn btn-danger" (click)='delete.show(this)'>
+    <button class="btn btn-danger">
         {{'delete'|translate}}
     </button>
   </div>
@@ -64,5 +66,4 @@
 
 
 <app-confimation #delete> </app-confimation>
-<app-create-employee #newEmployee></app-create-employee>
 <app-new-employee #addEmployee></app-new-employee>

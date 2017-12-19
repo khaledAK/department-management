@@ -1,27 +1,10 @@
 <div class="row" appClickStopPropagation>
   <div class="col">
     <ul class="list-group">
-      <a class="list-group-item" (click)="editDepartment.show(i , _departments)" style="cursor:pointer"
-        *ngFor='let department of _departments; let i = index;'>
-        <input type="checkbox" 
-        [hidden]="_employeeService.getCurrentEmployee().roleId != 2" 
-          (click)="$event.stopPropagation(); deleteDepartment(department)">{{department.name}}
-    </a>
+      <a class="list-group-item" (click)="openDepartment(department)" style="cursor:pointer"
+        *ngFor='let department of _departments;'>
+          {{department.name}}
+      </a>
     </ul>
-    <div [hidden]="_employeeService.getCurrentEmployee().roleId != 2"
-          class="cssCircle plusSign" 
-         (click)="newDepartment.show(this)">
-        &#43;
-    </div>
-    <div  [hidden]="_employeeService.getCurrentEmployee().roleId != 2" 
-      style="margin-top:10px">
-      <button
-      class="btn btn-danger" (click)="deleteDepartments()">{{'delete'|translate}}</button>
-    </div>
-    
   </div>
 </div>
-<button (click)="foo()">move</button>
-
-<app-edit-department #editDepartment> </app-edit-department>
-<app-new-department #newDepartment></app-new-department>

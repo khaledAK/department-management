@@ -7,17 +7,14 @@ import { EmployeeService } from '../service/employee.service';
 
 
 @Injectable()
-export class ManagerActivate implements CanActivate {
+export class AdminManager implements CanActivate {
   constructor(private employeeService: EmployeeService, private router: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean>|Promise<boolean>|boolean {
-    if (!this.employeeService.getCurrentEmployee().id) {
-      this.router.navigate(['/login']);
-    }
-    if(this.employeeService.getCurrentEmployee().roleId != 1) {
-        this.router.navigate(['403'])
+    if (this.employeeService.getCurrentEmployee().roleId == 3) {
+      this.router.navigate(['/403']);
     }
     return true;
   }

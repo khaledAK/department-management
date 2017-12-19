@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { EmployeeService } from '../../../service/employee.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { EmployeeService } from '../service/employee.service';
 
 @Component({
   selector: 'app-confimation',
@@ -7,27 +7,21 @@ import { EmployeeService } from '../../../service/employee.service';
   styleUrls: ['./confimation.component.css']
 })
 export class ConfimationComponent implements OnInit {
-
-
   public visible = false;
   public visibleAnimate = false;
   public parent;
-  constructor(public _employeeService:EmployeeService) { }
+  public confirmFunction;
+  @Input() message:string="";
 
   ngOnInit() {
   }
 
-  public deleteFromDepartment(): void {
-    this.parent.deleteEmployees();
-    this.hide();
-  }
-  public deleteForever(): void {
-    this.parent.deleteForever();
-    this.hide();
+  confirm() {
+    this.confirmFunction();
   }
 
-  public show(parent): void {
-    this.parent = parent;
+  public show(confirmFunction): void {
+    this.confirmFunction = confirmFunction;
     this.visible = true;
     setTimeout(() => this.visibleAnimate = true, 100);
   }

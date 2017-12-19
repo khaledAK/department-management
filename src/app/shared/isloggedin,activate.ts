@@ -13,11 +13,10 @@ export class IsLoggedIn implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean>|Promise<boolean>|boolean {
-    if (this.employeeService.getCurrentEmployee().roleId == 1) {
-      this.router.navigate(['/manager/profile']);
-    } else if(this.employeeService.getCurrentEmployee().roleId  == 2) {
-        this.router.navigate(['/adminstrator/profile']);
-    }
+    if (this.employeeService.getCurrentEmployee().roleId == 1 ||
+    this.employeeService.getCurrentEmployee().roleId == 2) {
+      this.router.navigate(['employees']);
+    } 
     return true;
   }
 }

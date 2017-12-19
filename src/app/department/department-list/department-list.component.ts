@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { DepartmentService } from '../../service/deppartment.service';
 import { DepartmentModel } from '../../shared/department.model';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EditDepartmentComponent } from '../edit-department/edit-department.component';
 import { EmployeeService } from '../../service/employee.service';
 
 
@@ -17,9 +16,8 @@ import { EmployeeService } from '../../service/employee.service';
 export class DepartmentListComponent implements OnInit {
 
   _departments: DepartmentModel[] = [];
-  deletedDepartments: number[] = [];
-  constructor(public _departmentService: DepartmentService, 
-    private _router:Router, public _employeeService: EmployeeService, private modalService: NgbModal) { }
+  constructor(public _departmentService: DepartmentService, private _router:Router, 
+    public _employeeService: EmployeeService) { }
 
   ngOnInit() {
     if(this._employeeService.getCurrentEmployee().roleId == 1) {
@@ -36,24 +34,7 @@ export class DepartmentListComponent implements OnInit {
     });
   }
 
-  editDepartment(idx) {
-    const modalRef = this.modalService.open(EditDepartmentComponent);
-  }
-
-  deleteDepartment(department) {
-    let idx = this.deletedDepartments.indexOf(department.id);
-    if(idx < 0) this.deletedDepartments.push(department.id);
-    else this.deletedDepartments.splice(idx , 1);
-  }
-
-  deleteDepartments() {
-    this._departmentService.deleteDepartments(this.deletedDepartments).subscribe(res => {
-      this.ngOnInit();
-    })
-  }
-
-  foo() {
-    console.log("A")
-    this._router.navigate(['createnewemployee'])
+  openDepartment(department) {
+    this._router.navigate(['/department', department])
   }
 }

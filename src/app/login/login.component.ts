@@ -22,10 +22,8 @@ export class LoginComponent implements OnInit {
     this._employeeService.login(this._email , this._password)
       .subscribe(response => {
         this._employeeService.setCurrentEmployee(response); 
-        if(this._employeeService.getCurrentEmployee().roleId === 1)
-          this._router.navigate(['manager/profile']);
-        else if(this._employeeService.getCurrentEmployee().roleId == 2)
-          this._router.navigate(['administrator/profile']);
+        if(this._employeeService.getCurrentEmployee().roleId != 3)
+          this._router.navigate(['employees']);
       });
   }
 
